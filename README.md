@@ -98,7 +98,8 @@ Age model performance chart:
 
 #### language classification:
 
-
+For the language classification we trained a LSTM model containing 2 hidden layers of 512 units each, and set a dropout of 60% respectively 40% to avoid model overfitting.
+The output layer consists of 3 units, one for each language to be identified, and uses softmax for its activation.
 
 The model is trained for 20 epochs using the _categorical crossentropy_ function as the loss function and the _ADAM_ optimizer for weight learning.
 
