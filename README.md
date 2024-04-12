@@ -108,10 +108,6 @@ After 20 epochs we've obtained a loss-score of 0.8, an accuracy of 0.64 and a pr
 Language model performance chart:
 ![lstm_lang_41_performance][10]
 
-### Project authors:
-    Forgacs Amelia
-    Enasoae Simona
-    Dragan Alex
 
 [dataset]: https://voice.mozilla.org/en/datasets
 [0]: images/initial_gender_dataset.png
