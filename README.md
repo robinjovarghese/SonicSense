@@ -109,3 +109,15 @@ Language model performance chart:
 ![lstm_lang_41_performance][10]
 
 
+[dataset]: https://voice.mozilla.org/en/datasets
+[0]: images/initial_gender_dataset.png
+[1]: images/initial_age_dataset.png
+[2]: images/initial_loaded_audio.png
+[3]: images/audio_after_split_threshold.png
+[4]: images/audio_after_trim_threshold.png
+[5]: images/mfcc_and_deltas_for_audio.png
+[6]: images/audio_pitches.png
+[7]: images/audio_magnitudes.png
+[8]: images/lstm_gender_41_performance.png
+[9]: images/lstm_age_41_performance.png
+[10]: images/lstm_lang_41_performance.png
