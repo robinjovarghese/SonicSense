@@ -4,6 +4,7 @@ import numpy as np
 from file_io import write_to_file_labels, concat_files
 from extract_features import get_features
 from utils import get_count, min_label_count
+from typing import Tuple
 
 folder_path = "C:/Users/Alex/Downloads/"
 english_dataset_path = "english_dataset/"
@@ -91,7 +92,7 @@ def get_data(feature, dataset, in_file, out_file):
     return inputs, outputs
 
 
-def create_equal_dataset(input_data, output_data, min_num) -> (np.array, np.array):
+def create_equal_dataset(input_data, output_data, min_num) -> Tuple[np.ndarray, np.ndarray]:
     """
     creates an equally sampled dataset based on the given labels and their count
     :param input_data: features
@@ -118,7 +119,7 @@ def create_equal_dataset(input_data, output_data, min_num) -> (np.array, np.arra
     return np.array(filtered_inputs), np.array(filtered_outputs)
 
 
-def clean_gender_dataset(inputs, outputs) -> (np.array, np.array):
+def clean_gender_dataset(inputs, outputs) -> Tuple[np.ndarray, np.ndarray]:
     cleaned_in = []
     cleaned_out = []
     for i in range(len(outputs)):
@@ -156,7 +157,7 @@ def create_gender_dataset(out_data_path, min_samples=0):
     concat_files(out_data_path, in_files, "gender_in")
     
 
-def clean_age_dataset(inputs, outputs) -> (np.array, np.array):
+def clean_age_dataset(inputs, outputs) -> Tuple[np.ndarray, np.ndarray]:
     cleaned_in = []
     cleaned_out = []
     for i in range(len(outputs)):
