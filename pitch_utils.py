@@ -33,7 +33,7 @@ def analyse(y, sr, fmin, fmax):
 
 def get_pitch_magnitude(audio_data_path, sample_rate):
 
-    duration = librosa.get_duration(filename=str(audio_data_path))
+    duration = librosa.get_duration(path=str(audio_data_path))
     y, sr = librosa.load(audio_data_path, sr=sample_rate, duration=duration, mono=True)
     pitches, magnitudes = analyse(y, sr, fmin=80, fmax=250)
 
