@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flask and HTML Example</title>
+</head>
+<body>
+
+<h1 id="message"></h1>
+
+<h2>Upload Voice WAV File</h2>
+<input type="file" accept="audio/wav" id="voiceInput">
+<button onclick="uploadVoice()">Upload Voice</button>
+<input type="user" id="username">
+<script>
+// Function to fetch data from Flask backend
+function fetchData() {
+    fetch('http://localhost:5000/api/data')
+
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('message').textContent = data.message;
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    });
+}
+
+// Fetch data when the page loads
+document.addEventListener('DOMContentLoaded', fetchData);
+
+// Function to upload voice file
+function uploadVoice() {
+    const fileInput = document.getElementById('voiceInput');
+    const file = fileInput.files[0];
+    if (!file) {
+        alert('Please select a file.');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('voiceFile', file);
+
+    fetch('http://localhost:5000/api/upload'
+, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Upload successful:', data);
+    })
+    .catch(error => {
+        console.error('Error uploading file:', error);
+    });
+}
+</script>
+
+</body>
+</html>

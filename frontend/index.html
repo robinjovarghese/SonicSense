@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flask and HTML Example</title>
+</head>
+<body>
+
+<h1 id="message"></h1>
+
+<script>
+// Function to fetch data from Flask backend
+function fetchData() {
+    fetch('http://localhost:5000/api/data')
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('message').textContent = data.message;
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    });
+}
+
+// Fetch data when the page loads
+document.addEventListener('DOMContentLoaded', fetchData);
+</script>
+
+</body>
+</html>
