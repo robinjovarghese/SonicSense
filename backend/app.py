@@ -1,23 +1,21 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import os
 
 app = Flask(__name__)
 CORS(app)
 
-# Define your routes and corresponding functions
+# Get the directory path of the current script
+current_directory = os.path.dirname(os.path.abspath(__file__))
+audio_directory = os.path.join(current_directory, 'audio')
+
+# Create the 'audio' directory if it doesn't exist
+if not os.path.exists(audio_directory):
+    os.makedirs(audio_directory)
+
 @app.route('/')
 def home():
     return 'Welcome to the SonicSense backend!'
-
-@app.route('/predictions')
-def get_predictions():
-    # Placeholder for fetching predictions from your model
-    predictions = {
-        "gender": "male",
-        "age": "30s",
-        "language": "english"
-    }
-    return '<input type="file" accept="audio/*" id="voiceInput" style="display: none;"><button >Start Voice Recognition</button>'
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
@@ -31,13 +29,15 @@ def upload_file():
         return jsonify({'error': 'No file part'}), 400
     
     file = request.files['voiceFile']
-    
+    username = request.form.get('username')  # Get username from the form data
+
     # If the user does not select a file, the browser sends an empty file without filename
     if file.filename == '':
         return jsonify({'error': 'No selected file'}), 400
 
-    # Save the file to a specified location
-    file.save('audio/frontendvoice.wav')  # Replace '/path/to/save/' with the desired save path
+    # Save the file with the provided username as the filename in the 'audio' directory
+    filename = os.path.join(audio_directory, f'{username}.wav')  # Custom filename based on username
+    file.save(filename)
 
     return jsonify({'message': 'File uploaded successfully'}), 200
 

@@ -11,13 +11,14 @@
 
 <h2>Upload Voice WAV File</h2>
 <input type="file" accept="audio/wav" id="voiceInput">
+<h2>Enter Username</h2>
+<input type="text" id="username">
 <button onclick="uploadVoice()">Upload Voice</button>
-<input type="user" id="username">
+
 <script>
 // Function to fetch data from Flask backend
 function fetchData() {
     fetch('http://localhost:5000/api/data')
-
     .then(response => response.json())
     .then(data => {
         document.getElementById('message').textContent = data.message;
@@ -39,11 +40,17 @@ function uploadVoice() {
         return;
     }
 
+    const username = document.getElementById('username').value;
+    if (!username) {
+        alert('Please enter a username.');
+        return;
+    }
+
     const formData = new FormData();
     formData.append('voiceFile', file);
+    formData.append('username', username);
 
-    fetch('http://localhost:5000/api/upload'
-, {
+    fetch('http://localhost:5000/api/upload', {
         method: 'POST',
         body: formData
     })
