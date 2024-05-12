@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import subprocess
+import json
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})  # Allow CORS for all origins
@@ -36,8 +37,12 @@ def upload_file():
     # Print the result for testing
     print("Result from main.py:", result.stdout)
 
-    # Return the result from the main program to the frontend
-    return jsonify(result.stdout), 200
+    # Extract the JSON array from the output string
+    json_array_str = result.stdout.split('\n')[-2]  # Assuming the JSON array is always the second-to-last line
+    json_array = json.loads(json_array_str)
+
+    # Return the JSON array to the frontend
+    return jsonify(json_array), 200
 
 if __name__ == '__main__':
     app.run(debug=True)
