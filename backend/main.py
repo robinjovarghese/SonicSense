@@ -1,15 +1,14 @@
 import os
 from pathlib import Path
-
 import numpy as np
 import tensorflow as tf  # Import TensorFlow
-
 from extract_features import get_audio_features
 from gender_model import lstm_gender_model
 from age_model import lstm_age_model
 from language_model import lstm_lang_model
 from utils import norm_multiple
 from file_io import get_data_files
+import json
 
 # Define custom metrics
 def precision(y_true, y_pred):
@@ -91,6 +90,8 @@ def main_program():
 
     data_files = os.listdir(data_path)
 
+    results = []
+
     for data_file in data_files:
         data = get_audio_features(Path(data_path + data_file),
                                   extra_features=["delta", "delta2", "pitch"])
@@ -102,20 +103,12 @@ def main_program():
         age_predict = age_model.predict(data[1])
         lang_predict = lang_model.predict(data[2])
         
-        gender_print = "{} ==> GENDER(lstm): {} gender_prob: {}".format(data_file,
-                        get_gender(gender_predict).upper(), gender_predict)
-        age_print = "{} ==> AGE(lstm): {} age_prob: {}".format(data_file,
-                        get_age(age_predict).upper(), age_predict)
-        lang_print = "{} ==> LANG(lstm): {} lang_prob: {}".format(data_file,
-                        get_lang(lang_predict).upper(), lang_predict)
+        result = {'age': get_age(age_predict).upper(), 'gender': get_gender(gender_predict).upper(), 'language': get_lang(lang_predict).upper()}
         
-        print('=' * max(len(gender_print), len(age_print), len(lang_print)))
-        print()
-        print(gender_print)
-        print(age_print)
-        print(lang_print)
-        print()
-        print('=' * max(len(gender_print), len(age_print), len(lang_print)))
+        results.append(result)
+
+    return results
 
 if __name__ == '__main__':
-    main_program()
+    results = main_program()
+    print(json.dumps(results))

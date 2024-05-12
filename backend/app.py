@@ -33,6 +33,9 @@ def upload_file():
     # Now call your main program
     result = subprocess.run(['python', 'main.py'], capture_output=True, text=True)
     
+    # Print the result for testing
+    print("Result from main.py:", result.stdout)
+
     # Return the result from the main program to the frontend
     return jsonify(result.stdout), 200
 
