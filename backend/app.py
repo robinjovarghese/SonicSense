@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+import subprocess
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})  # Allow CORS for all origins
@@ -8,16 +9,6 @@ CORS(app, resources={r"/*": {"origins": "*"}})  # Allow CORS for all origins
 @app.route('/')
 def home():
     return 'Welcome to the SonicSense backend!'
-
-@app.route('/predictions')
-def get_predictions():
-    # Placeholder for fetching predictions from your model
-    predictions = {
-        "gender": "male",
-        "age": "30s",
-        "language": "english"
-    }
-    return '<input type="file" accept="audio/*" id="voiceInput" style="display: none;"><button >Start Voice Recognition</button>'
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
@@ -39,7 +30,11 @@ def upload_file():
     # Save the file to a specified location
     file.save('audio/frontendvoice.wav')  # Replace '/path/to/save/' with the desired save path
 
-    return jsonify({'message': 'File uploaded successfully'}), 200
+    # Now call your main program
+    result = subprocess.run(['python', 'main.py'], capture_output=True, text=True)
+    
+    # Return the result from the main program to the frontend
+    return jsonify(result.stdout), 200
 
 if __name__ == '__main__':
     app.run(debug=True)
