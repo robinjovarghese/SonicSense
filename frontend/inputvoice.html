@@ -74,9 +74,9 @@ function uploadVoice() {
     .then(response => response.json())
     .then(data => {
         // Display the age, gender, and language on the frontend
-        document.getElementById('age').textContent = 'Age: ' + data.age;
-        document.getElementById('gender').textContent = 'Gender: ' + data.gender;
-        document.getElementById('language').textContent = 'Language: ' + data.language;
+        document.getElementById('age').textContent = 'Age: ' + data[0].age;
+        document.getElementById('gender').textContent = 'Gender: ' + data[0].gender;
+        document.getElementById('language').textContent = 'Language: ' + data[0].language;
     })
     .catch(error => {
         console.error('Error uploading file:', error);
