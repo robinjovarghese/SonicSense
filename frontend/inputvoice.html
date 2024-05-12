@@ -32,6 +32,7 @@
     <div class="message-container">
         <h1 id="message" class="message">Response</h1>
         <h2 class="subtitle">Results</h2>
+        <p id="printedUsername">Username: </p>
         <p id="age">Age: </p>
         <p id="gender">Gender: </p>
         <p id="language">Language: </p>
@@ -47,42 +48,45 @@
 
 
 <script>
-
-// Function to upload voice file
-function uploadVoice() {
-    const fileInput = document.getElementById('voiceInput');
-    const file = fileInput.files[0];
-    if (!file) {
-        alert('Please select a file.');
-        return;
+    // Function to upload voice file
+    function uploadVoice() {
+        const fileInput = document.getElementById('voiceInput');
+        const file = fileInput.files[0];
+        if (!file) {
+            alert('Please select a file.');
+            return;
+        }
+    
+        const username = document.getElementById('username').value;
+        if (!username) {
+            alert('Please enter a username.');
+            return;
+        }
+        
+        // Display the entered username on the webpage
+        document.getElementById('printedUsername').textContent = 'Username: ' + username;
+    
+        const formData = new FormData();
+        formData.append('voiceFile', file);
+        formData.append('username', username);
+    
+        fetch('http://localhost:5000/api/upload', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Display the age, gender, and language on the frontend
+            document.getElementById('age').textContent = 'Age: ' + data[0].age;
+            document.getElementById('gender').textContent = 'Gender: ' + data[0].gender;
+            document.getElementById('language').textContent = 'Language: ' + data[0].language;
+        })
+        .catch(error => {
+            console.error('Error uploading file:', error);
+        });
     }
-
-    const username = document.getElementById('username').value;
-    if (!username) {
-        alert('Please enter a username.');
-        return;
-    }
-
-    const formData = new FormData();
-    formData.append('voiceFile', file);
-    formData.append('username', username);
-
-    fetch('http://localhost:5000/api/upload', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        // Display the age, gender, and language on the frontend
-        document.getElementById('age').textContent = 'Age: ' + data[0].age;
-        document.getElementById('gender').textContent = 'Gender: ' + data[0].gender;
-        document.getElementById('language').textContent = 'Language: ' + data[0].language;
-    })
-    .catch(error => {
-        console.error('Error uploading file:', error);
-    });
-}
-</script>
+    </script>
+    
 
 </body>
 </html>
