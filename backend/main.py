@@ -1,5 +1,7 @@
 import os
 from pathlib import Path
+import json
+
 
 import numpy as np
 import tensorflow as tf  # Import TensorFlow
@@ -109,13 +111,17 @@ def main_program():
         lang_print = "{} ==> LANG(lstm): {} lang_prob: {}".format(data_file,
                         get_lang(lang_predict).upper(), lang_predict)
         
-        print('=' * max(len(gender_print), len(age_print), len(lang_print)))
-        print()
-        print(gender_print)
-        print(age_print)
-        print(lang_print)
-        print()
-        print('=' * max(len(gender_print), len(age_print), len(lang_print)))
+      #  print('=' * max(len(gender_print), len(age_print), len(lang_print)))
+       # print()
+       # print(gender_print)
+      #  print(age_print)
+        #print(lang_print)
+       # print() 
+   #     print('=' * max(len(gender_print), len(age_print), len(lang_print)))
+
+# Add this line at the end of main_program() function
+        result = {'age': get_age(age_predict).upper(), 'gender': get_gender(gender_predict).upper(), 'language': get_lang(lang_predict).upper()}
+        print(json.dumps(result))
 
 if __name__ == '__main__':
     main_program()

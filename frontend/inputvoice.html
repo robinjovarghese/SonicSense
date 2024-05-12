@@ -42,6 +42,7 @@
     </span>
 </footer>
 
+
 <script>
 // Function to fetch data from Flask backend
 function fetchData() {
@@ -83,7 +84,10 @@ function uploadVoice() {
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Upload successful:', data);
+        // Display the age, gender, and language on the frontend
+        document.getElementById('age').textContent = 'Age: ' + data.age;
+        document.getElementById('gender').textContent = 'Gender: ' + data.gender;
+        document.getElementById('language').textContent = 'Language: ' + data.language;
     })
     .catch(error => {
         console.error('Error uploading file:', error);

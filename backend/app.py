@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
+import subprocess
+import json
 
 app = Flask(__name__)
 CORS(app)
@@ -24,6 +26,7 @@ def get_data():
 
 @app.route('/api/upload', methods=['POST'])
 def upload_file():
+    
     # Check if the POST request has the file part
     if 'voiceFile' not in request.files:
         return jsonify({'error': 'No file part'}), 400
@@ -39,7 +42,18 @@ def upload_file():
     filename = os.path.join(audio_directory, f'{username}.wav')  # Custom filename based on username
     file.save(filename)
 
-    return jsonify({'message': 'File uploaded successfully'}), 200
+    # Inside the upload_file() function
+    # Call the main program script
+    process = subprocess.Popen(['python', "D:\\\Github\\SonicSense\\backend\\main.py"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    out, err = process.communicate()
+    if process.returncode == 0:
+        result = json.loads(out.decode('utf-8'))
+        return jsonify(result), 200
+    else:
+        print(err)
+        return jsonify({'error': 'Error processing the audio'}), 500
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
