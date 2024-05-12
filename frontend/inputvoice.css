@@ -1,0 +1,99 @@
+/* inputvoice.css */
+
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #a8a8a8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1px 20px;
+}
+
+.logo img {
+    width: 100px; /* Adjust according to your logo size */
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 18px;
+}
+
+.container {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.form-container {
+    margin-bottom: 20px;
+}
+
+.subtitle {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.text-input {
+    width: 300px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.file-input {
+    width: 300px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.upload-btn {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.upload-btn:hover {
+    background-color: #45a049;
+}
+
+.message-container {
+    text-align: center;
+}
+
+.message {
+    color: #333;
+}
+
+/* Footer styles */
+footer {
+    position: fixed; /* Change from sticky to fixed */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgb(0, 0, 0);
+    padding: 15px 23px;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    z-index: 20;
+}
+
+/* Change color of 'Vitality' to yellow */
+footer span a {
+    color: rgb(255, 238, 0);
+}

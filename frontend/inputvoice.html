@@ -3,21 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flask and HTML Example</title>
+<title>SonicSense</title>
+<link rel="stylesheet" href="inputvoice.css"> <!-- Link to your CSS file -->
 </head>
 <body>
 
-<h1 id="message"></h1>
+<nav class="navbar">
+    <div class="logo">
+        <a href="index.html"><img src="sonic_logo.png" alt="Sonic Sense Logo"></a>
+    </div>
+    <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="credits.html">Contact</a>
+    </div>
+</nav>
 
-<h2>Upload Voice WAV File</h2>
-<input type="file" accept="audio/wav" id="voiceInput">
-<button onclick="uploadVoice()">Upload Voice</button>
-<input type="user" id="username">
+<div class="container">
+    <div class="form-container">
+        <h2 class="subtitle">Enter name</h2>
+        <input type="text" id="username" class="text-input">
+
+        <h2 class="subtitle">Upload audio</h2>
+        <input type="file" accept="audio/wav" id="voiceInput" class="file-input">
+        
+        <button onclick="uploadVoice()" class="upload-btn">Upload Voice</button>
+    </div>
+
+    <div class="message-container">
+        <h2 class="subtitle">Server Response</h2>
+        <h1 id="message" class="message"></h1>
+    </div>
+</div>
+
+<footer>
+    <span>
+        Team <a href="credits.html">SonicSense</a> &nbsp;
+        <span class="far fa-copyright"></span> 2024 All rights reserved.
+    </span>
+</footer>
+
+
 <script>
 // Function to fetch data from Flask backend
 function fetchData() {
     fetch('http://localhost:5000/api/data')
-
     .then(response => response.json())
     .then(data => {
         document.getElementById('message').textContent = data.message;
@@ -39,17 +68,26 @@ function uploadVoice() {
         return;
     }
 
+    const username = document.getElementById('username').value;
+    if (!username) {
+        alert('Please enter a username.');
+        return;
+    }
+
     const formData = new FormData();
     formData.append('voiceFile', file);
+    formData.append('username', username);
 
-    fetch('http://localhost:5000/api/upload'
-, {
+    fetch('http://localhost:5000/api/upload', {
         method: 'POST',
         body: formData
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Upload successful:', data);
+        // Display the age, gender, and language on the frontend
+        document.getElementById('age').textContent = 'Age: ' + data.age;
+        document.getElementById('gender').textContent = 'Gender: ' + data.gender;
+        document.getElementById('language').textContent = 'Language: ' + data.language;
     })
     .catch(error => {
         console.error('Error uploading file:', error);
