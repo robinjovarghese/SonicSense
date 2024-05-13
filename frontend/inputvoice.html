@@ -70,7 +70,7 @@
         formData.append('voiceFile', file);
         formData.append('username', username);
     
-        fetch('http://localhost:5000/api/upload', {
+        fetch('http://127.0.0.1:7250/api/upload', {
             method: 'POST',
             body: formData
         })

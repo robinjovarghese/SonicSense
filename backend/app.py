@@ -32,7 +32,7 @@ def upload_file():
     file.save('audio/frontendvoice.wav')  # Replace '/path/to/save/' with the desired save path
 
     # Now call your main program
-    result = subprocess.run(['python', 'main.py'], capture_output=True, text=True)
+    result = subprocess.run(['python3', 'main.py'], capture_output=True, text=True)
     
     # Print the result for testing
     print("Result from main.py:", result.stdout)
@@ -45,4 +45,5 @@ def upload_file():
     return jsonify(json_array), 200
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    # Run the app on custom port 7250
+    app.run(debug=True, port=7250)
