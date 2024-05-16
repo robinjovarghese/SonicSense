@@ -8,28 +8,13 @@
 }
 
 /* Navbar styles */
-.navbar {
-    background-color: #a8a8a8;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1px 20px;
-}
 
-.logo img {
-    width: 100px; /* Adjust according to your logo size */
-}
 
-.nav-links a {
-    color: #fff;
-    text-decoration: none;
-    margin-left: 20px;
-    font-size: 18px;
-}
 
 .container {
     margin-top: 50px;
     text-align: center;
+    color: #eaeaea; /* Match text color with the screenshot */
 }
 
 .form-container {
@@ -39,27 +24,31 @@
 .subtitle {
     margin-top: 20px;
     margin-bottom: 10px;
-    color: #555;
+    color: #888; /* Lighter subtitle color */
 }
 
 .text-input {
     width: 300px;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #444; /* Darker border color */
     border-radius: 5px;
     font-size: 16px;
+    background-color: #2f3e46; /* Dark background to match screenshot */
+    color: #eaeaea; /* Light text color */
 }
 
 .file-input {
     width: 300px;
     padding: 10px;
     margin-bottom: 10px;
+    background-color: #2f3e46; /* Dark background */
+    color: #eaeaea; /* Light text color */
 }
 
 .upload-btn {
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: #5ec5a5; /* Adjusted to match the button color */
     color: white;
     border: none;
     border-radius: 5px;
@@ -69,41 +58,55 @@
 }
 
 .upload-btn:hover {
-    background-color: #45a049;
+    background-color: #4caf8e; /* Darker shade on hover */
 }
-.message-box{
+
+.message-box {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100vw;
 }
+
 .message-container {
     border-radius: 20px;
-  width: 400px;
-  padding: 20px;
-    background: #bdbdbd;
+    width: 400px;
+    padding: 20px;
+    background: #2f3e46; /* Dark background to match screenshot */
     text-align: center;
-    color: whitesmoke;
+    color: #eaeaea; /* Light text color */
 }
 
 .message {
-    color: #333;
+    color: #eaeaea; /* Match text color with the screenshot */
 }
 
 /* Footer styles */
 footer {
-    position: fixed; /* Change from sticky to fixed */
+    position: fixed; /* Fixed position for footer */
     bottom: 0;
     left: 0;
     width: 100%;
-    background: rgb(0, 0, 0);
+    background: #2f3e46; /* Dark footer background */
     padding: 15px 23px;
-    color: rgb(255, 255, 255);
+    color: #eaeaea; /* Light footer text color */
     text-align: center;
     z-index: 20;
 }
 
-/* Change color of 'Vitality' to yellow */
+/* Change color of 'SonicSense' to light blue */
 footer span a {
-    color: rgb(255, 238, 0);
+    color: #8fd7f2; /* Adjusted color */
+    text-decoration: none; /* Remove underline */
+}
+
+footer span a:hover {
+    color: #5ec5a5; /* Hover color for the footer link */
+}
+
+/* Additional general styles for consistency */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1e2a30; /* Dark background color */
+    color: #eaeaea; /* Light text color */
 }

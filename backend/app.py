@@ -32,7 +32,7 @@ def upload_file():
     file.save('audio/frontendvoice.wav')  # Replace '/path/to/save/' with the desired save path
 
     # Now call your main program
-    result = subprocess.run(['python3', 'main.py'], capture_output=True, text=True)
+    result = subprocess.run(['python', 'main.py'], capture_output=True, text=True)
     
     # Print the result for testing
     print("Result from main.py:", result.stdout)

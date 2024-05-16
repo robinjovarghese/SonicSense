@@ -2,40 +2,70 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0 , shrink-to-fit=no">
+<meta name="author" content="" />
 <title>Sonic Sense</title>
+<!-- Font Awesome icons (free version)-->
+<script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+<!-- Google fonts-->
+<link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
 <link rel="stylesheet" href="index.css"> <!-- Link to your CSS file -->
 </head>
-<body>
-
-<div class="container">
-    
-   
-    <button onclick="start()" class="start-btn">Sense</button>
-</div>
-
-
-<main id="main">
-    <!-- About Us Section -->
-    <section id="about" class="about section-bg">
-      <div class="container">
-        <div class="row gy-4">
-          <div class="image col-xl-5" data-aos="fade-in"></div>
-          <div class="col-xl-7">
-            <div class="content d-flex flex-column justify-content-center ps-0 ps-xl-4">
-              <h3 data-aos="fade-in" data-aos-delay="200">About</h3>
-              <br>
-              <p data-aos="fade-in" data-aos-delay="200">
-                SonicSense is at the forefront of revolutionizing voice recognition technology. In a world where communication is constant and diverse, accurately identifying individuals based on their voice presents a significant challenge. Our mission is to overcome this challenge by developing cutting-edge solutions capable of not only identifying speakers but also determining their gender and estimating their age group solely from their voice input.
-            
-                In today's digital landscape, traditional voice recognition systems often fall short in accurately discerning speaker identity, gender, and age group. 
-
-                SonicSense addresses this critical need for advanced voice recognition technology by leveraging state-of-the-art algorithms and machine learning techniques. Our system surpasses conventional methods by providing accurate speaker identification and valuable demographic insights. By analyzing vocal characteristics such as pitch, tone, and speech patterns, SonicSense delivers precise identifications and enhances user experiences.
-            </div>
+<body id="page-top">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container px-4 px-lg-5">
+          
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              Menu
+              <i class="fas fa-bars"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+              <ul class="navbar-nav ms-auto">
+                  <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                  <li class="nav-item"><a class="nav-link" href="credits.html">Contact</a></li>
+                  
+                  <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+                  
+              </ul>
           </div>
-        </div>
       </div>
-    </section>
+  </nav>
+<!-- Masthead-->
+<header class="masthead">
+  <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
+      <div class="d-flex justify-content-center">
+          <div class="text-center">
+              <h1 class="mx-auto my-0 text-uppercase">SonicSense</h1>
+              <h2 class="text-white-50 mx-auto mt-2 mb-5">Voice based age,gender,language recognition.</h2>
+              <a class="btn btn-primary" href="inputvoice.html">Sense</a>
+          </div>
+      </div>
+  </div>
+</header>
+<!-- About-->
+<section class="about-section text-center" id="about">
+  <div class="container px-4 px-lg-5">
+      <div class="row gx-4 gx-lg-5 justify-content-center">
+          <div class="col-lg-8">
+              <h2 class="text-white mb-4">Voice Based Age , Gender , Language Recognition</h2>
+              <p class="text-white-50">
+                  SonicSense is at the forefront of revolutionizing voice recognition technology. In a world where communication is constant and diverse, accurately identifying individuals based on their voice presents a significant challenge. Our mission is to overcome this challenge by developing cutting-edge solutions capable of not only identifying speakers but also determining their gender and estimating their age group solely from their voice input.
+  
+                  In today's digital landscape, traditional voice recognition systems often fall short in accurately discerning speaker identity, gender, and age group. 
+  
+                  SonicSense addresses this critical need for advanced voice recognition technology by leveraging state-of-the-art algorithms and machine learning techniques. Our system surpasses conventional methods by providing accurate speaker identification and valuable demographic insights. By analyzing vocal characteristics such as pitch, tone, and speech patterns, SonicSense delivers precise identifications and enhances user experiences.
+              
+              </p>
+          </div>
+      </div>
+      
+  </div>
+</section>
+
+
+    
 
        <!-- FAQ Section -->
        <section id="faq" class="faq section-bg">
@@ -115,10 +145,66 @@
     
 
 <script>
+
 // Function to redirect to inputvoice.html
 function start() {
     window.location.href = "inputvoice.html";
 }
+    /*!
+* Start Bootstrap - Grayscale v7.0.6 (https://startbootstrap.com/theme/grayscale)
+* Copyright 2013-2023 Start Bootstrap
+* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-grayscale/blob/master/LICENSE)
+*/
+//
+// Scripts
+// 
+
+window.addEventListener('DOMContentLoaded', event => {
+
+// Navbar shrink function
+var navbarShrink = function () {
+    const navbarCollapsible = document.body.querySelector('#mainNav');
+    if (!navbarCollapsible) {
+        return;
+    }
+    if (window.scrollY === 0) {
+        navbarCollapsible.classList.remove('navbar-shrink')
+    } else {
+        navbarCollapsible.classList.add('navbar-shrink')
+    }
+
+};
+
+// Shrink the navbar 
+navbarShrink();
+
+// Shrink the navbar when page is scrolled
+document.addEventListener('scroll', navbarShrink);
+
+// Activate Bootstrap scrollspy on the main nav element
+const mainNav = document.body.querySelector('#mainNav');
+if (mainNav) {
+    new bootstrap.ScrollSpy(document.body, {
+        target: '#mainNav',
+        rootMargin: '0px 0px -40%',
+    });
+};
+
+// Collapse responsive navbar when toggler is visible
+const navbarToggler = document.body.querySelector('.navbar-toggler');
+const responsiveNavItems = [].slice.call(
+    document.querySelectorAll('#navbarResponsive .nav-link')
+);
+responsiveNavItems.map(function (responsiveNavItem) {
+    responsiveNavItem.addEventListener('click', () => {
+        if (window.getComputedStyle(navbarToggler).display !== 'none') {
+            navbarToggler.click();
+        }
+    });
+});
+
+});
+
 </script>
 
 </body>

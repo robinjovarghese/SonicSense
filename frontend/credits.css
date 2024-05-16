@@ -22,11 +22,11 @@ body {
     min-height: 100vh; /* Set minimum height to the full viewport height */
     padding: 20px;
     text-align: center;
-    background-color: #222222cd;
+    background-color: #495057;;
 }
 
 .container h2 {
-    color: #333;
+    color: #3b3b3b;
 }
 
 .container p {
@@ -35,7 +35,7 @@ body {
 
 /* Navbar styles */
 .navbar {
-    background-color: #a8a8a8;
+    background-color: #596066;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -59,8 +59,8 @@ body {
     width: auto;
     padding: 30px 30px;
     border-radius: 15px;
-    background: linear-gradient(to top, grey, #ddd9d9);
-    box-shadow: 7px 7px 14px 8px #3b3a3ac5;
+    background: linear-gradient(to top, rgb(66, 64, 64), #a8a3a3);
+    box-shadow: 7px 7px 14px 8px #171616c5;
 }
 
 .con:hover img {
