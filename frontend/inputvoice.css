@@ -71,9 +71,19 @@
 .upload-btn:hover {
     background-color: #45a049;
 }
-
+.message-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+}
 .message-container {
+    border-radius: 20px;
+  width: 400px;
+  padding: 20px;
+    background: #bdbdbd;
     text-align: center;
+    color: whitesmoke;
 }
 
 .message {

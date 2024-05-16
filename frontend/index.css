@@ -9,7 +9,7 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
-    background-image: url(./your-background-image.jpg);
+    background-image: url(./image.png);
     background-size: cover; /* Set background image to cover entire viewport */
     background-position: center; /* Center the background image */
     background-repeat: no-repeat; /* Prevent background image from repeating */

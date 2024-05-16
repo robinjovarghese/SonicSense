@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SonicSense</title>
-<link rel="stylesheet" href="inputvoice.css"> <!-- Link to your CSS file -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SonicSense</title>
+    <link rel="stylesheet" href="inputvoice.css"> <!-- Link to your CSS file -->
 </head>
 <body>
 
@@ -29,13 +29,14 @@
         <button onclick="uploadVoice()" class="upload-btn">Upload Voice</button>
     </div>
 
-    <div class="message-container">
-        <h1 id="message" class="message">Response</h1>
-        <h2 class="subtitle">Results</h2>
-        <p id="printedUsername">Username: </p>
-        <p id="age">Age: </p>
-        <p id="gender">Gender: </p>
-        <p id="language">Language: </p>
+    <div class="message-box" > <!-- Initially hidden -->
+        <div class="message-container" style="display: none;">
+            <!-- <h1 id="message" class="message">Response</h1> -->
+            <p id="printedUsername"></p>
+            <p id="age">Age: </p>
+            <p id="gender">Gender: </p>
+            <p id="language">Language: </p>
+        </div>
     </div>
 </div>
 
@@ -46,10 +47,12 @@
     </span>
 </footer>
 
-
 <script>
     // Function to upload voice file
     function uploadVoice() {
+        // Hide message box
+        document.querySelector('.message-container').style.display = 'none';
+        
         const fileInput = document.getElementById('voiceInput');
         const file = fileInput.files[0];
         if (!file) {
@@ -64,7 +67,7 @@
         }
         
         // Display the entered username on the webpage
-        document.getElementById('printedUsername').textContent = 'Username: ' + username;
+        document.getElementById('printedUsername').textContent =  username;
     
         const formData = new FormData();
         formData.append('voiceFile', file);
@@ -74,7 +77,14 @@
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())
+        .then(response => {
+            if (response.ok) {
+                document.querySelector('.message-container').style.display = 'block'; // Display message box on successful response
+                return response.json();
+            } else {
+                throw new Error('Network response was not ok.');
+            }
+        })
         .then(data => {
             // Display the age, gender, and language on the frontend
             document.getElementById('age').textContent = 'Age: ' + data[0].age;
@@ -85,8 +95,7 @@
             console.error('Error uploading file:', error);
         });
     }
-    </script>
-    
+</script>
 
 </body>
 </html>
