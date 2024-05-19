@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SonicSense</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7fafc;
+            margin: 0;
+            padding: 0;
+        }
+
+        .flip-card {
+            perspective: 1000px;
+        }
+
+        .flip-card__inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card__front, .flip-card__back {
+            position: absolute;
+            width: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        .flip-card__back {
+            transform: rotateY(180deg);
+        }
+
+        .toggle-label {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+            background-color: #ccc;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .toggle-label input {
+            display: none;
+        }
+
+        .toggle-label-switch {
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            background-color: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: left 0.3s;
+        }
+
+        .toggle-label input:checked + .toggle-label-switch {
+            left: 32px;
+        }
+
+        .toggle-label input:checked + .toggle-label-switch + .toggle-label {
+            background-color: #4CAF50;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-gradient-to-l from-gray-900 to-black p-6 flex justify-between items-center">
+        <div class="text-white text-2xl">SonicSense</div>
+    </nav>
+    <div class="max-w-md mx-auto mt-20 px-4">
+        <div class="flex justify-center mb-6">
+            <label for="toggle" class="toggle-label cursor-pointer">
+                <input type="checkbox" id="toggle" class="hidden">
+                <span class="toggle-label-switch"></span>
+            </label>
+        </div>
+        <div class="flip-card">
+            <div class="flip-card__inner">
+                <div class="flip-card__front">
+                    <h2 class="text-2xl font-semibold text-center mb-4">Login</h2>
+                    <form id="loginForm" class="text-center">
+                        <div class="mb-4 text-left">
+                            <label for="emailid" class="block">Email id:</label>
+                            <input type="email" id="emailid" name="emailid" required class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div class="mb-4 text-left">
+                            <label for="password" class="block">Password:</label>
+                            <input type="password" id="password" name="password" required class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div class="mb-4">
+                            <button type="submit" class="btn bg-gray-700 text-white py-2 px-4 rounded transition duration-300">Login</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="flip-card__back">
+                    <h2 class="text-2xl font-semibold text-center mb-4">Sign Up</h2>
+                    <form id="signupForm" class="text-center">
+                        <div class="mb-4 text-left">
+                            <label for="signupEmail" class="block">Email:</label>
+                            <input type="email" id="signupEmail" name="signupEmail" required class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div class="mb-4 text-left">
+                            <label for="signupPassword" class="block">Password:</label>
+                            <input type="password" id="signupPassword" name="signupPassword" required class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div class="mb-4 text-left">
+                            <label for="confirmPassword" class="block">Confirm Password:</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword" required class="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-500">
+                        </div>
+                        <button type="submit" class="btn bg-blue-500 text-white py-2 px-4 rounded transition duration-300">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBUkWAlBSGkrHzQQQronSDuD3cgWbptvsw",
+            authDomain: "loginfirebase-8e89c.firebaseapp.com",
+            projectId: "loginfirebase-8e89c",
+            storageBucket: "loginfirebase-8e89c.appspot.com",
+            messagingSenderId: "788154899137",
+            appId: "1:788154899137:web:61766440cee4d9fe67d240",
+            measurementId: "G-92YZ0LDYJV"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const email = document.getElementById('emailid').value;
+            const password = document.getElementById('password').value;
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    window.location.href = 'index.html';
+                })
+                .catch((error) => {
+                    console.error(error);
+                    alert("Login failed. Please check your credentials.");
+                });
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            if (password !== confirmPassword) {
+                alert("Passwords do not match. Please try again.");
+                return;
+            }
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    window.location.href = 'index.html';
+                })
+                .catch((error) => {
+                    console.error(error);
+                    alert("Signup failed. Please check your details.");
+                });
+        });
+
+        document.getElementById('toggle').addEventListener('change', function (event) {
+            const flipCardInner = document.querySelector('.flip-card__inner');
+            if (event.target.checked) {
+                flipCardInner.style.transform = 'rotateY(180deg)';
+            } else {
+                flipCardInner.style.transform = 'rotateY(0deg)';
+            }
+        });
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in, redirect to index.html
+                window.location.href = 'index.html';
+            } else {
+                // No user is signed in
+            }
+        });
+    </script>
+</body>
+</html>

@@ -7,9 +7,6 @@
     <link rel="stylesheet" href="inputvoice.css"> <!-- Link to your CSS file -->
 </head>
 <body>
-
-
-    
 <div class="container">
     <div class="form-container">
         <h2 class="subtitle">Input name</h2>
@@ -21,9 +18,8 @@
         <button onclick="uploadVoice()" class="upload-btn">Done</button>
     </div>
 
-    <div class="message-box" > <!-- Initially hidden -->
+    <div class="message-box"> <!-- Initially hidden -->
         <div class="message-container" style="display: none;">
-            <!-- <h1 id="message" class="message">Response</h1> -->
             <p id="printedUsername"></p>
             <p id="age">Age: </p>
             <p id="gender">Gender: </p>
@@ -39,7 +35,39 @@
     </span>
 </footer>
 
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-auth-compat.js"></script>
+
 <script>
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyBUkWAlBSGkrHzQQQronSDuD3cgWbptvsw",
+        authDomain: "loginfirebase-8e89c.firebaseapp.com",
+        projectId: "loginfirebase-8e89c",
+        storageBucket: "loginfirebase-8e89c.appspot.com",
+        messagingSenderId: "788154899137",
+        appId: "1:788154899137:web:61766440cee4d9fe67d240",
+        measurementId: "G-92YZ0LDYJV"
+    };
+
+    // Initialize Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore(app);
+    const auth = firebase.auth(app);
+
+    let userId = null;
+
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            userId = user.uid;
+        } else {
+            userId = null;
+            window.location.href = 'login-signup.html';
+        }
+    });
+
     // Function to upload voice file
     function uploadVoice() {
         // Hide message box
@@ -52,14 +80,10 @@
             return;
         }
     
-        const username = document.getElementById('username').value;
-        if (!username) {
-            alert('Please enter a username.');
-            return;
-        }
+        const username = document.getElementById('username').value.trim() || "Unknown";
         
         // Display the entered username on the webpage
-        document.getElementById('printedUsername').textContent =  username;
+        document.getElementById('printedUsername').textContent = "Name: " + username;
     
         const formData = new FormData();
         formData.append('voiceFile', file);
@@ -82,10 +106,34 @@
             document.getElementById('age').textContent = 'Age: ' + data[0].age;
             document.getElementById('gender').textContent = 'Gender: ' + data[0].gender;
             document.getElementById('language').textContent = 'Language: ' + data[0].language;
+
+            // Save data to Firebase Firestore
+            saveToFirestore(username, data[0].age, data[0].gender, data[0].language);
         })
         .catch(error => {
             console.error('Error uploading file:', error);
         });
+    }
+
+    function saveToFirestore(username, age, gender, language) {
+        if (userId) {
+            db.collection("voiceData").add({
+                userId: userId,
+                username: username,
+                age: age,
+                gender: gender,
+                language: language,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            })
+            .then(() => {
+                console.log("Data successfully saved to Firestore!");
+            })
+            .catch((error) => {
+                console.error("Error saving data to Firestore: ", error);
+            });
+        } else {
+            console.error("User ID is not available.");
+        }
     }
 </script>
 
